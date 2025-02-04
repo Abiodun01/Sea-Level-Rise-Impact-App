@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch/dist/geosearch.css" />
+  </head>
+  <body>
+    
+<section>
+    <div class="header-section">
+        <h1 class="Name">SEA LEVEL RISE IMPACT</h1>
+      </div>
+    
+    
+      <!-- Toggler icon -->
+      <div class="toggler-container" id="toggler">
+    
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6h16M4 12h16M4 18h16" stroke="black" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+      </div>
+    
+      <!-- Dropdown menu -->
+      <div class="dropdown-menu" id="dropdown">
+        <div>
+            <a href="#" onclick="toggleSection('login-section')">Login</a>
+            <div id="login-section" style="display: none;">
+                <h3>Login</h3>
+                <form id="login-form">
+                    <label for="login-username">Username:</label>
+                    <input type="text" id="login-username" name="username" required>
+                    <br>
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" required>
+                    <br>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    
+        <div>
+            <a href="#" onclick="toggleSection('signup-section')">Sign Up</a>
+            <div id="signup-section" style="display: none;">
+                <h3>Sign Up</h3>
+                <form id="signup-form">
+                    <label for="signup-email">Email:</label>
+                    <input type="email" id="signup-email" name="email" required>
+                    <br>
+                    <label for="signup-password">Password:</label>
+                    <input type="password" id="signup-password" name="password" required>
+                    <br>
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <br>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    
+        <div>
+            <a href="#" onclick="toggleSection('help-section')">Help</a>
+            <div id="help-section" style="display: none;">
+                <h3>Help</h3>
+                <p>This app is designed to show the impact of sea level rise over the West Africa coast.</p>
+                <ul>
+                    <li>Enter your login credentials to access your account.</li>
+                    <li>Sign up with a valid email and password.</li>
+                    <li>Use the app to visualize the effects of sea level changes.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+  </body>
+    
+</section>   
+
+    <div id="map"></div>
+</html>
+
+<!-- Leafetjs -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-geosearch/dist/bundle.min.js"></script>
+<!-- <script src="Raster_Data/2150_SeaLevel.js"></script> -->
+ <script src="Raster_Data/SeaLevel_2150.js"></script>
+
+<script>
+  // Map Initialization
+  var map = L.map("map").setView([6.4, 3.1], 13);
+
+  // OSM Layer
+  var OSM = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  });
+  OSM.addTo(map);
+
+   // Google Satellite  Tile layer from Leaflet platform itself
+   var satelliteBaseMap = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    {
+      attribution:
+        "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+    }
+  );
+  satelliteBaseMap.addTo(map);
+
+   // Layer Controller
+   var baseMaps = {
+    OSM: OSM,
+    "Google Satellite": satelliteBaseMap,
+  };
+
+  // Add layer control to the map
+L.control.layers(baseMaps).addTo(map);
+
+  var overlayMaps = {
+    // "First Marker": singleMarker,
+    // "Second Marker": secondMarker,
+    // "Point Data": pointData,
+    // "Line Data": lineData,
+    // "FUTA Boundary": futaBoundary,
+    // "The nexrad": nexrad,
+  };
+
+  // Import GeoSearch control and provider
+  const provider = new GeoSearch.OpenStreetMapProvider();
+
+// Configure the GeoSearch control
+const searchControl = new GeoSearch.GeoSearchControl({
+  provider: provider,
+  style: 'bar', // Optional: Choose between 'bar' or 'button'
+  showMarker: true, // Show a marker at the search result
+  showPopup: true, // Show a popup at the search result
+  retainZoomLevel: false, // Zoom to the result location
+  animateZoom: true, // Smooth zooming
+  keepResult: true, // Keep the search result visible
+});
+
+// Add the GeoSearch control to the map
+map.addControl(searchControl);
+
+// <!-- GEOJSON --> This is just to Make it Show
+//  L.geoJSON(seaLevel2150).addTo(map)
+// Below to make it interactive
+
+L.geoJSON(seaLevel2150, {
+  onEachFeature: function(feature, layer) {
+    layer.bindPopup(feature.properties.NAME);
+  }
+}).addTo(map);
+
+</script>
+
+<!-- Leaflet GeoSearch Plugin -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch/dist/geosearch.css" />
+<script src="https://unpkg.com/leaflet-geosearch/dist/bundle.min.js"></script>

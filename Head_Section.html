@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaflet GeoTIFF Overlay</title>
+
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- GeoRaster Libraries -->
+    <script src="https://unpkg.com/georaster"></script>
+    <script src="https://unpkg.com/georaster-layer-for-leaflet"></script>
+
+    <style>
+      #map {
+        height: 600px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <script>
+      // Initialize the Leaflet Map
+      var map = L.map("map").setView([0, 0], 2); // Initial view
+
+      // OSM Base Map Layer
+      var OSM = L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }
+      ).addTo(map);
+
+      // Load and Display GeoTIFF
+      fetch("Raster_Data/2150_SEALEVEL_RISE_IMPACT.tif") // Ensure correct path
+        .then((response) => response.arrayBuffer())
+        .then((data) => {
+          parseGeoraster(data).then((georaster) => {
+            console.log("GeoTIFF Loaded:", georaster);
+
+            // Check if the raster has multiple bands
+            if (georaster.numberOfRasters > 1) {
+              console.warn(
+                "GeoTIFF has multiple bands. Only displaying the first band."
+              );
+            }
+
+            // Create a GeoRaster Layer
+            var rasterLayer = new GeoRasterLayer({
+              georaster: georaster,
+              opacity: 0.7, // Adjust transparency
+              resolution: 256, // Adjust for better performance
+            });
+
+            rasterLayer.addTo(map); // Add raster layer to map
+
+            // Fit map to raster bounds
+            map.fitBounds(rasterLayer.getBounds());
+          });
+        })
+        .catch((error) => console.error("Error loading GeoTIFF:", error));
+    </script>
+  </body>
+</html>
