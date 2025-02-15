@@ -35,10 +35,24 @@ const searchControl = new GeoSearch.GeoSearchControl({
 map.addControl(searchControl);
 
 // Toggle Sections
-function toggleSection(sectionId) {
-  var section = document.getElementById(sectionId);
-  section.style.display = section.style.display === "none" ? "block" : "none";
-}
+// Toggle Menu Function
+// Function to toggle individual sections (Login, Signup, Help)
+// Check if the script is loaded
+console.log("Script loaded successfully");
+
+// Check if the toggler button is found
+var toggler = document.getElementById("toggler");
+console.log("Toggler:", toggler);
+
+// Dropdown Menu Toggle
+toggler.addEventListener("click", function () {
+  console.log("Toggler clicked");
+  var dropdown = document.getElementById("dropdown");
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+});
+
+
+
 
 // GEOJSON Layer
 L.geoJSON(seaLevel2150, {
@@ -69,3 +83,9 @@ document.head.appendChild(style);
 
 L.geoJSON(pointJson).addTo(map)
 
+// ADDING GEOJSON TO MAP
+L.geoJSON(seaLevel2150, {
+  onEachFeature: function(feature, layer) {
+    layer.bindPopup(feature.properties.NAME);
+  }
+}).addTo(map);
