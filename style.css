@@ -118,10 +118,101 @@
 /* Leaflet_Style */
 #map {
     margin-top: 3rem;
-    width: 70%;
+    width: 80%;
     height: 100vh;
     margin-left: auto;
     margin-right: 0;
     display: block;
 
   }
+
+  /* Customize GeoSearch search bar */
+.leaflet-control-geosearch form {
+    background-color: #007bff !important;
+    border-radius: 8px !important;
+    padding: 5px !important;
+  }
+  
+  /* Customize the input field */
+  .leaflet-control-geosearch input {
+    font-size: 14px !important;
+    border-radius: 5px !important;
+    border: 2px solid #007bff !important;
+    padding: 6px 10px !important;
+  }
+  
+  /* Customize the search results */
+  .leaflet-control-geosearch .results {
+    background-color: white !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) !important;
+    font-size: 14px !important;
+    padding: 5px !important;
+    color: black !important;
+  }
+  
+  /* Customize results list items */
+  .leaflet-control-geosearch .results li {
+    padding: 5px !important;
+    border-bottom: 1px solid #eee !important;
+  }
+  
+  .leaflet-control-geosearch .results li:hover {
+    background-color: #007bff !important;
+    color: white !important;
+  }
+
+  @media (max-width: 767px) {
+    .leaflet-control-geosearch form{
+        width: 140PX;
+    }
+    
+  }
+
+  /* OVERWRITING LEAFLET CONTROLER WITH ONLY CSS  */
+  /* Customize Leaflet Layer Control Box */
+.leaflet-control-layers {
+    font-size: 14px !important; /* Adjust text size */
+    padding: 6px !important; /* Add padding */
+    width: 70px !important; /* Set custom width */
+    max-height: 200px !important; /* Set custom max height */
+    overflow-y: auto !important; /* Add scroll if content exceeds height */
+    border-radius: 8px !important;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2) !important;
+    align-self: center;
+  }
+  
+  /* Customize the Layer Control Labels */
+  .leaflet-control-layers label {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 5px !important;
+  }
+  
+  /* Customize Checkboxes and Radio Buttons */
+  .leaflet-control-layers input[type="radio"],
+  .leaflet-control-layers input[type="checkbox"] {
+    transform: scale(1.2) !important; /* Increase size */
+    margin-right: 6px !important;
+  }
+  
+  /* Customize Layer Group Headers */
+  .leaflet-control-layers-separator {
+    border-top: 1px solid #ccc !important;
+    margin: 5px 0 !important;
+  }
+  
+  /* Scrollbar Style for Layer Control */
+  .leaflet-control-layers::-webkit-scrollbar {
+    width: 8px !important;
+  }
+  
+  .leaflet-control-layers::-webkit-scrollbar-thumb {
+    background-color: #007bff !important;
+    border-radius: 10px !important;
+  }
+  S
+  .leaflet-control-layers::-webkit-scrollbar-thumb:hover {
+    background-color: #0056b3 !important;
+  }
+  

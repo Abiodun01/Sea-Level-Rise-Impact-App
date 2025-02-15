@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lagos Sea Level Rise Impact</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Leaflet and GeoSearch CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-geosearch/dist/geosearch.css"
+    />
+  </head>
+  <body>
+    <section>
+      <div class="header-section">
+        <h1 class="Name">LAGOS SEA LEVEL RISE IMPACT</h1>
+      </div>
+
+      <!-- Toggler icon -->
+      <div class="toggler-container" id="toggler">
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 6h16M4 12h16M4 18h16"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+
+      <!-- Dropdown menu -->
+      <div class="dropdown-menu" id="dropdown">
+        <div>
+          <a href="#" onclick="toggleSection('login-section')">Login</a>
+          <div id="login-section" style="display: none">
+            <h3>Login</h3>
+            <form id="login-form">
+              <label for="login-username">Username:</label>
+              <input type="text" id="login-username" name="username" required />
+              <label for="login-password">Password:</label>
+              <input
+                type="password"
+                id="login-password"
+                name="password"
+                required
+              />
+              <button type="submit">Login</button>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <a href="#" onclick="toggleSection('signup-section')">Sign Up</a>
+          <div id="signup-section" style="display: none">
+            <h3>Sign Up</h3>
+            <form id="signup-form">
+              <label for="signup-email">Email:</label>
+              <input type="email" id="signup-email" name="email" required />
+              <label for="signup-password">Password:</label>
+              <input
+                type="password"
+                id="signup-password"
+                name="password"
+                required
+              />
+              <label for="confirm-password">Confirm Password:</label>
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                required
+              />
+              <button type="submit">Sign Up</button>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <a href="#" onclick="toggleSection('help-section')">Help</a>
+          <div id="help-section" style="display: none">
+            <h3>Help</h3>
+            <p>
+              This app shows the impact of sea level rise over the West Africa
+              coast.
+            </p>
+            <ul>
+              <li>Login to access your account.</li>
+              <li>Sign up with a valid email and password.</li>
+              <li>Visualize sea level changes on the map.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Leaflet and GeoSearch JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="Raster_Data/SeaLevel_2150.js"></script>
+    <script src="https://unpkg.com/leaflet-geosearch/dist/bundle.min.js"></script>
+
+    <!-- Local JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
+<script>
+  L.geoJSON(seaLevel2150, {
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup(feature.properties.NAME);
+    },
+  }).addTo(map);
+</script>

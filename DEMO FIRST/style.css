@@ -1,0 +1,122 @@
+/* Header Section */
+.header-section {
+    background: rgb(36, 114, 204);
+}
+
+.Name {
+    color: white;
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+/* Toggler Icon */
+.toggler-container {
+    border-radius: 5px;
+    background-color: #ccc;
+    position: fixed;
+    top: 4rem;
+    right: 10px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none;
+    background: rgb(105, 101, 101);
+    border: 1px solid #0c0c0c;
+    box-shadow: 0 4px 8px rgba(235, 218, 218, 0.973);
+    border-radius: 5px;
+    overflow: hidden;
+    width: 150px;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.dropdown-menu a:hover {
+    background: #f1f1f1;
+}
+
+/* Map Styling */
+#map {
+    margin-top: 3rem;
+    width: 80%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: 0;
+    display: block;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .toggler-container {
+        display: none;
+    }
+    .dropdown-menu {
+        display: flex !important;
+        width: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .toggler-container {
+        display: block;
+    }
+    .dropdown-menu {
+        display: inline-block;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* TO OVERWRITE GEOSEARCH BUTTON SCRIPT AND STYLE ARE BOTH INVOLVED */
+/* Customize GeoSearch search bar */
+.leaflet-control-geosearch form {
+    background-color: #007bff !important;
+    border-radius: 1px !important;
+    padding: 2px !important;
+  }
+  
+  /* Customize the input field */
+  .leaflet-control-geosearch input {
+    /* font-size: 14px !important; */
+    border-radius: 5px !important;
+    border: 2px solid #e5e7eb !important;
+    padding: 6px 10px !important;
+  }
+  
+  /* Customize the search results */
+  .leaflet-control-geosearch .results {
+    background-color: white !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) !important;
+    font-size: 14px !important;
+    padding: 5px !important;
+    color: black !important;
+  }
+  
+  /* Customize results list items */
+  .leaflet-control-geosearch .results li {
+    padding: 5px !important;
+    border-bottom: 1px solid #eee !important;
+  }
+  
+  .leaflet-control-geosearch .results li:hover {
+    /* background-color: #007bff !important; */
+    color: white !important;
+  }
+  
+  @media (max-width: 767px) {
+    .leaflet-control-geosearch form{
+        width: 140PX;
+    }
+    
+  }

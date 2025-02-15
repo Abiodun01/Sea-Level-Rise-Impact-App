@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Lagos Sea Level Rise Impact</title>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="style.css" />
 
@@ -16,11 +16,10 @@
   <body>
     
 <section>
+
     <div class="header-section">
         <h1 class="Name">SEA LEVEL RISE IMPACT</h1>
       </div>
-    
-    
       <!-- Toggler icon -->
       <div class="toggler-container" id="toggler">
     
@@ -146,7 +145,7 @@ const searchControl = new GeoSearch.GeoSearchControl({
   keepResult: true, // Keep the search result visible
 });
 
-// Add the GeoSearch control to the map
+// Add the GeoSearch control to the m
 map.addControl(searchControl);
 
 // <!-- GEOJSON --> This is just to Make it Show
@@ -158,6 +157,27 @@ L.geoJSON(seaLevel2150, {
     layer.bindPopup(feature.properties.NAME);
   }
 }).addTo(map);
+
+// Add custom styles for GeoSearch via JavaScript
+const style = document.createElement('style');
+style.innerHTML = `
+  .leaflet-control-geosearch form {
+    background-color: #007bff !important;
+    border-radius: 8px !important;
+  }
+  .leaflet-control-geosearch input {
+    font-size: 14px !important;
+    padding: 6px 10px !important;
+    border-radius: 5px !important;
+    border: 2px solid #007bff !important;
+  }
+  .leaflet-control-geosearch .results li:hover {
+    background-color: #007bff !important;
+    color: white !important;
+  }
+`;
+document.head.appendChild(style);
+
 
 </script>
 
